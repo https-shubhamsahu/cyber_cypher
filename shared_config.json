@@ -1,0 +1,865 @@
+{
+  "banks": [
+    {
+      "id": "hdfc",
+      "name": "HDFC Bank",
+      "priority": 1,
+      "weight": 4,
+      "enabled": true,
+      "health_status": "degraded",
+      "circuit_breaker": {
+        "state": "closed",
+        "failure_threshold": 5,
+        "failure_count": 0,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      },
+      "metrics": {
+        "success_rate": 0.98,
+        "avg_latency_ms": 120,
+        "total_requests": 0,
+        "failed_requests": 0
+      }
+    },
+    {
+      "id": "sbi",
+      "name": "SBI Bank",
+      "priority": 2,
+      "weight": 1,
+      "enabled": true,
+      "health_status": "healthy",
+      "circuit_breaker": {
+        "state": "closed",
+        "failure_threshold": 5,
+        "failure_count": 0,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      },
+      "metrics": {
+        "success_rate": 0.96,
+        "avg_latency_ms": 150,
+        "total_requests": 0,
+        "failed_requests": 0
+      }
+    },
+    {
+      "id": "icici",
+      "name": "ICICI Bank",
+      "priority": 3,
+      "weight": 50,
+      "enabled": true,
+      "health_status": "healthy",
+      "circuit_breaker": {
+        "state": "closed",
+        "failure_threshold": 5,
+        "failure_count": 0,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      },
+      "metrics": {
+        "success_rate": 0.97,
+        "avg_latency_ms": 140,
+        "total_requests": 0,
+        "failed_requests": 0
+      }
+    },
+    {
+      "id": "bob",
+      "name": "BOB Bank",
+      "priority": 4,
+      "weight": 1,
+      "enabled": true,
+      "health_status": "healthy",
+      "circuit_breaker": {
+        "state": "closed",
+        "failure_threshold": 5,
+        "failure_count": 0,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "level": "normal",
+        "max_retries": 3,
+        "backoff_ms": 1000
+      },
+      "metrics": {
+        "success_rate": 0.95,
+        "avg_latency_ms": 160,
+        "total_requests": 0,
+        "failed_requests": 0
+      }
+    },
+    {
+      "id": "axis",
+      "name": "AXIS Bank",
+      "priority": 5,
+      "weight": 35,
+      "enabled": true,
+      "health_status": "healthy",
+      "circuit_breaker": {
+        "state": "closed",
+        "failure_threshold": 5,
+        "failure_count": 0,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      },
+      "metrics": {
+        "success_rate": 0.96,
+        "avg_latency_ms": 145,
+        "total_requests": 0,
+        "failed_requests": 0
+      }
+    },
+    {
+      "id": "idfc",
+      "name": "IDFC Bank",
+      "priority": 6,
+      "weight": 4,
+      "enabled": true,
+      "health_status": "healthy",
+      "circuit_breaker": {
+        "state": "closed",
+        "failure_threshold": 5,
+        "failure_count": 0,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      },
+      "metrics": {
+        "success_rate": 0.94,
+        "avg_latency_ms": 170,
+        "total_requests": 0,
+        "failed_requests": 0
+      }
+    },
+    {
+      "id": "pnb",
+      "name": "PNB Bank",
+      "priority": 7,
+      "weight": 0,
+      "enabled": true,
+      "health_status": "healthy",
+      "circuit_breaker": {
+        "state": "closed",
+        "failure_threshold": 5,
+        "failure_count": 0,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "level": "normal",
+        "max_retries": 3,
+        "backoff_ms": 1000
+      },
+      "metrics": {
+        "success_rate": 0.93,
+        "avg_latency_ms": 180,
+        "total_requests": 0,
+        "failed_requests": 0
+      }
+    }
+  ],
+  "routing_rules": {
+    "primary_bank": "hdfc",
+    "fallback_strategy": "weighted_round_robin",
+    "chaos_mode": false,
+    "chaos_failure_rate": 0.3
+  },
+  "global_config": {
+    "default_timeout_ms": 5000,
+    "max_concurrent_requests": 100,
+    "health_check_interval_s": 30,
+    "safe_mode": false
+  },
+  "agent_history": [
+    {
+      "timestamp": "2026-02-01T07:35:31.671854",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "degraded",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:35:31.674314",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "sbi",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 20,
+          "sbi": 9,
+          "icici": 26,
+          "bob": 15,
+          "axis": 15,
+          "idfc": 10,
+          "pnb": 5
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:35:31.676059",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "axis",
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:35:31.677784",
+      "action": "toggle_chaos_mode",
+      "details": {
+        "enabled": true,
+        "failure_rate": 0.4
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:41:27.032419",
+      "action": "toggle_chaos_mode",
+      "details": {
+        "enabled": false,
+        "failure_rate": 0.3
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:46:21.966006",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "bob",
+        "new_weights": {
+          "hdfc": 10,
+          "sbi": 9,
+          "icici": 26,
+          "bob": 25,
+          "axis": 15,
+          "idfc": 10,
+          "pnb": 5
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:46:21.968101",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:48:24.822545",
+      "action": "toggle_chaos_mode",
+      "details": {
+        "enabled": true,
+        "failure_rate": 0.3
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:48:28.059008",
+      "action": "toggle_chaos_mode",
+      "details": {
+        "enabled": false,
+        "failure_rate": 0.3
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:48:39.116523",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 9,
+          "icici": 31,
+          "bob": 25,
+          "axis": 15,
+          "idfc": 10,
+          "pnb": 5
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:48:39.119941",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:53:45.390617",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "healthy",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T07:54:35.082059",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "degraded",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:00:22.942537",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "healthy",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:00:24.941890",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "degraded",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:00:45.714158",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "healthy",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:01:50.873043",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "degraded",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:02:11.572536",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "healthy",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:02:18.337642",
+      "action": "update_bank_health",
+      "details": {
+        "bank": "hdfc",
+        "health_status": "degraded",
+        "enabled": null
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:14:45.817099",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "bob",
+        "to": "axis",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 9,
+          "icici": 31,
+          "bob": 13,
+          "axis": 27,
+          "idfc": 10,
+          "pnb": 5
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:14:45.822783",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "icici",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:55:46.187442",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 4,
+          "sbi": 8,
+          "icici": 32,
+          "bob": 12,
+          "axis": 26,
+          "idfc": 9,
+          "pnb": 4
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:55:46.190867",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:55:54.470903",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "sbi",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:56:03.203367",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "bob",
+        "to": "axis",
+        "new_weights": {
+          "hdfc": 4,
+          "sbi": 8,
+          "icici": 33,
+          "bob": 6,
+          "axis": 33,
+          "idfc": 9,
+          "pnb": 4
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:56:03.206702",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "icici",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:56:11.443082",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:56:34.396171",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "sbi",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:56:42.628216",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "icici",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:05.702868",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 8,
+          "icici": 35,
+          "bob": 6,
+          "axis": 33,
+          "idfc": 9,
+          "pnb": 4
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:05.705815",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:13.470861",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 4,
+          "sbi": 7,
+          "icici": 36,
+          "bob": 5,
+          "axis": 32,
+          "idfc": 8,
+          "pnb": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:13.474386",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:22.680094",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "axis",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 7,
+          "icici": 36,
+          "bob": 5,
+          "axis": 34,
+          "idfc": 8,
+          "pnb": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:22.683694",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:30.811632",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "sbi",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 5,
+          "icici": 39,
+          "bob": 5,
+          "axis": 34,
+          "idfc": 8,
+          "pnb": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:30.814672",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "sbi",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:39.250429",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 4,
+          "sbi": 4,
+          "icici": 40,
+          "bob": 4,
+          "axis": 33,
+          "idfc": 7,
+          "pnb": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:39.253306",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:48.340698",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 4,
+          "icici": 43,
+          "bob": 4,
+          "axis": 34,
+          "idfc": 7,
+          "pnb": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:48.347358",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:57.311914",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "axis",
+        "new_weights": {
+          "hdfc": 4,
+          "sbi": 3,
+          "icici": 42,
+          "bob": 3,
+          "axis": 35,
+          "idfc": 6,
+          "pnb": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:57:57.315283",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T08:58:05.890978",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "icici",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T09:08:38.013691",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 3,
+          "icici": 45,
+          "bob": 3,
+          "axis": 36,
+          "idfc": 6,
+          "pnb": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T09:11:08.209211",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "normal",
+        "max_retries": 3,
+        "backoff_ms": 1000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T09:11:28.794212",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 4,
+          "sbi": 2,
+          "icici": 46,
+          "bob": 2,
+          "axis": 35,
+          "idfc": 5,
+          "pnb": 0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T09:59:14.813374",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:24:10.511934",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "idfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:26:16.509286",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:27:18.370760",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 5,
+          "sbi": 2,
+          "icici": 49,
+          "bob": 2,
+          "axis": 36,
+          "idfc": 5,
+          "pnb": 0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:27:18.373833",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:31:26.331353",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:32:28.420456",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:35:34.578815",
+      "action": "reroute_traffic",
+      "details": {
+        "from": "hdfc",
+        "to": "icici",
+        "new_weights": {
+          "hdfc": 4,
+          "sbi": 1,
+          "icici": 50,
+          "bob": 1,
+          "axis": 35,
+          "idfc": 4,
+          "pnb": 0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:36:36.866365",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
+      }
+    },
+    {
+      "timestamp": "2026-02-01T10:38:41.011274",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "high",
+        "max_retries": 5,
+        "backoff_ms": 2000
+      }
+    }
+  ]
+}

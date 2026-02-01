@@ -1,0 +1,79 @@
+{
+  "gateways": [
+    {
+      "id": "gateway_a",
+      "name": "Stripe Gateway",
+      "priority": 1,
+      "weight": 50,
+      "enabled": false,
+      "circuit_breaker": {
+        "state": "open",
+        "failure_threshold": 5,
+        "failure_count": 1,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "max_retries": 3,
+        "backoff_ms": 1000
+      },
+      "metrics": {
+        "success_rate": 0.70790273556231,
+        "avg_latency_ms": 161456010192928268293987784529016413911235284423264034250952360662521112372865823175346352890608380105476563619568603558543393470919261174942285239046768312162298154682593229966728701544891130876971829252883906034762822506325258402980677314741596237412327701176543264224085322816284197186045645928625181032448,
+        "total_requests": 6580,
+        "failed_requests": 1922
+      }
+    },
+    {
+      "id": "gateway_b",
+      "name": "PayPal Gateway",
+      "priority": 2,
+      "weight": 30,
+      "enabled": false,
+      "circuit_breaker": {
+        "state": "open",
+        "failure_threshold": 5,
+        "failure_count": 5,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "max_retries": 3,
+        "backoff_ms": 1000
+      },
+      "metrics": {
+        "success_rate": 0.7333333333333333,
+        "avg_latency_ms": 5971,
+        "total_requests": 45,
+        "failed_requests": 12
+      }
+    },
+    {
+      "id": "gateway_c",
+      "name": "Razorpay Gateway",
+      "priority": 3,
+      "weight": 20,
+      "enabled": false,
+      "circuit_breaker": {
+        "state": "open",
+        "failure_threshold": 5,
+        "failure_count": 5,
+        "last_failure_time": null
+      },
+      "retry_policy": {
+        "max_retries": 3,
+        "backoff_ms": 1000
+      },
+      "metrics": {
+        "success_rate": 0.7083333333333334,
+        "avg_latency_ms": 1801995,
+        "total_requests": 72,
+        "failed_requests": 21
+      }
+    }
+  ],
+  "global_config": {
+    "default_timeout_ms": 5000,
+    "max_concurrent_requests": 100,
+    "health_check_interval_s": 30
+  },
+  "agent_history": []
+}
