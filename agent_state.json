@@ -1,12 +1,21 @@
 {
-  "timestamp": "2026-02-01T10:41:47.573882",
-  "reasoning": "**HYPOTHESIS:** HDFC is experiencing degraded latency due to slow transactions.\n\n**ANALYSIS:** HDFC Bank has a success rate of 100% but an average latency of 634ms, which is significantly higher than the average latency of 174ms. This suggests that HDFC Bank is experiencing slow transactions. Additionally, there are 2 slow transactions recorded, which further supports this hypothesis. The recent actions to set retry policy for HDFC Bank have not resolved the issue, as the latency remains high.\n\n**DECISION:** INTERVENE",
+  "timestamp": "2026-02-01T11:07:23.863147",
+  "reasoning": "**HYPOTHESIS:** HDFC is experiencing degraded latency due to timeouts\n\n**ANALYSIS:** HDFC Bank has a 100% success rate but a high latency of 600ms due to 2 slow transactions. This indicates a potential issue with HDFC's system. Additionally, ICICI Bank and AXIS Bank have unknown errors, which could be contributing to their lower success rates.\n\n**DECISION:** INTERVENE",
   "reasoning_details": {
-    "hypothesis": "HDFC is experiencing degraded latency due to slow transactions.",
+    "hypothesis": "HDFC is experiencing degraded latency due to timeouts",
     "confidence_score": 0.8,
-    "analysis": "HDFC Bank has a success rate of 100% but an average latency of 634ms, which is significantly higher than the average latency of 174ms. This suggests that HDFC Bank is experiencing slow transactions. Additionally, there are 2 slow transactions recorded, which further supports this hypothesis. The recent actions to set retry policy for HDFC Bank have not resolved the issue, as the latency remains high.",
+    "analysis": "HDFC Bank has a 100% success rate but a high latency of 600ms due to 2 slow transactions. This indicates a potential issue with HDFC's system. Additionally, ICICI Bank and AXIS Bank have unknown errors, which could be contributing to their lower success rates.",
     "decision": "INTERVENE",
     "actions": [
+      {
+        "type": "set_retry_policy",
+        "params": {
+          "bank": "hdfc",
+          "level": "high",
+          "max_retries": 5,
+          "backoff_ms": 2000
+        }
+      },
       {
         "type": "reroute_traffic",
         "params": {
@@ -15,7 +24,7 @@
           "new_weights": {
             "hdfc": 4,
             "sbi": 1,
-            "icici": 55,
+            "icici": 50,
             "bob": 1,
             "axis": 35,
             "idfc": 4,
@@ -24,10 +33,10 @@
         }
       }
     ],
-    "explanation_for_user": "We are experiencing slow transactions with HDFC Bank, which is affecting the overall performance of our payment system. To mitigate this issue, we will reroute traffic from HDFC Bank to ICICI Bank, which has a lower latency."
+    "explanation_for_user": "We're experiencing issues with HDFC's system, causing high latency. To mitigate this, we're adjusting HDFC's retry policy and rerouting traffic from HDFC to ICICI."
   },
   "actions": [
-    "NONE"
+    "SKIPPED: Cooldown active (20s)"
   ],
   "feedback": {
     "status": "done"

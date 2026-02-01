@@ -14,9 +14,9 @@
         "last_failure_time": null
       },
       "retry_policy": {
-        "level": "high",
-        "max_retries": 5,
-        "backoff_ms": 2000
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
       },
       "metrics": {
         "success_rate": 0.98,
@@ -859,6 +859,16 @@
         "level": "high",
         "max_retries": 5,
         "backoff_ms": 2000
+      }
+    },
+    {
+      "timestamp": "2026-02-01T11:07:15.514313",
+      "action": "set_retry_policy",
+      "details": {
+        "bank": "hdfc",
+        "level": "low",
+        "max_retries": 1,
+        "backoff_ms": 500
       }
     }
   ]
