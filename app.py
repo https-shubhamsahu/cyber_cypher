@@ -391,13 +391,6 @@ with st.sidebar:
     
     st.markdown("---")
     
-    # Launch checkout demo
-    st.link_button(
-        "🚀 Launch Checkout Demo",
-        "http://localhost:8502",
-        use_container_width=True
-    )
-
 # Main dashboard area
 # Top row - KPI Cards
 col1, col2, col3 = st.columns(3)
