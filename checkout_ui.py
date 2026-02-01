@@ -368,6 +368,11 @@ def main():
     container = st.container()
     
     with container:
+        # Add link back to dashboard
+        dashboard_url = os.getenv("DASHBOARD_URL", "http://localhost:8501")
+        st.sidebar.markdown("### 🛡️ Sentinel Ops")
+        st.sidebar.link_button("📊 Back to Dashboard", dashboard_url, use_container_width=True)
+
         # Step 1: Contact Details
         if st.session_state.step == 1:
             st.markdown(f"""

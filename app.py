@@ -305,8 +305,12 @@ with st.sidebar:
         st.rerun()
     
     st.markdown("---")
+    st.markdown("### 🔗 EXTERNAL LINKS")
+    # In cloud deployment, provide the URL of the separate Checkout app
+    checkout_url = os.getenv("CHECKOUT_URL", "https://cybercypher-checkout.streamlit.app/")
+    st.link_button("🛒 Open Customer Checkout", checkout_url, use_container_width=True)
     
-    # Reasoning details display
+    st.markdown("---")
     st.markdown("**Latest Analysis:**")
     
     # Try to load from disk (background process)
